@@ -19,7 +19,7 @@ public class FacebookAnalytics: CAPPlugin {
 
         if let valueToSum = call.getDouble("valueToSum") {
             if let params = call.getObject("params") {
-                AppEvents.logEvent(.init(event), valueToSum: valueToSum, parameters: params)
+                AppEvents.shared.logEvent(.init(event), valueToSum: valueToSum, parameters: params)
             } else {
                 AppEvents.logEvent(.init(event), valueToSum: valueToSum)
             }
