@@ -1,41 +1,39 @@
 ## Installation
 
+This is a fork from [SpellChucker's plugin](https://github.com/SpellChucker/capacitor-plugin-facebook-analytics)
+
+**Current plugin version is for Capacitor 4**
+
+I didn't test it standalone. I use it with Facebook SDK in my projects. Current Facebook SDK version in plugin is 15.1.0. 
+If you also have Facebook SDK in your project, I recommend to set its version to 15.1.0.
+
 ```bash
-$ npm i --save capacitor-plugin-facebook-analytics
+$ npm i /sverdlov/capacitor-plugin-facebook-analytics
 ```
 
 To use yarn
 
 ```bash
-yarn add capacitor-plugin-facebook-analytics
+yarn add https://github.com/sverdlov/capacitor-plugin-facebook-analytics
 ```
 
 ## Android configuration
 
-In file `android/app/src/main/java/**/**/MainActivity.java`, add the plugin to the initialization list:
-
-```diff
-  this.init(savedInstanceState, new ArrayList<Class<? extends Plugin>>() {{
-    [...]
-+   add(com.vrba.plugins.facebookanalytics.FacebookAnalytics.class);
-    [...]
-  }});
-```
-
 In file `android/app/src/main/AndroidManifest.xml`, add the following XML elements under `<manifest><application>` :
 
 ```diff
-+ <meta-data android:name="com.facebook.sdk.ApplicationId"
-+     android:value="@string/facebook_app_id"/>
++ <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
++ <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
 ```
 
 In file `android/app/src/main/res/values/strings.xml` add the following lines :
 
 ```diff
 + <string name="facebook_app_id">[APP_ID]</string>
++ <string name="facebook_client_token">[CLIENT_TOKEN]</string>
 ```
 
-Don't forget to replace `[APP_ID]` by your Facebook application Id.
+Don't forget to replace `[APP_ID]` and `[CLIENT_TOKEN]` by your Facebook application ID and Client Token.
 
 More information can be found here: https://developers.facebook.com/docs/app-events/getting-started-app-events-android
 
@@ -48,9 +46,13 @@ Add the following in the `ios/App/App/info.plist` file:
 + <string>[APP_ID]</string>
 + <key>FacebookDisplayName</key>
 + <string>[APP_NAME]</string>
++ <key>FacebookClientToken</key>
++ <string>[CLIENT_TOKEN]</string>
 ```
-
+You may also need some additional parameters.
 More information can be found here: https://developers.facebook.com/docs/app-events/getting-started-app-events-ios
+
+You have to implement _setAdvertiserTrackingEnabled_ method for iOS before sending events. See more here https://developers.facebook.com/docs/audience-network/setting-up/platform-setup/ios/advertising-tracking-enabled
 
 ## Supported methods
 
@@ -63,10 +65,10 @@ More information can be found here: https://developers.facebook.com/docs/app-eve
 ### logEvent
 
 ```ts
-import { Plugins } from '@capacitor/core';
-const { FacebookAnalytics } = Plugins;
+import { FacebookAnalytics } from 'capacitor-plugin-facebook-analytics';
 
 // Example commands.
+await FacebookAnalytics.setAdvertiserTrackingEnabled(options: { enabled: boolean }): Promise<string>;
 await FacebookAnalytics.logEvent(options: { event: string, params?: any }): Promise<string>;
 await FacebookAnalytics.logPurchase(options: {amount: number, currency: string, params: any}): Promise<string>;
 await FacebookAnalytics.logAddPaymentInfo(options: {success: number}): Promise<string>;

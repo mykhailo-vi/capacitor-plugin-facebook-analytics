@@ -8,6 +8,25 @@ import FBSDKCoreKit
  */
 @objc(FacebookAnalytics)
 public class FacebookAnalytics: CAPPlugin {
+    
+    private func JSObjectToFBParams(_ params: JSObject) -> [AppEvents.ParameterName : Any] {
+        let newDict = params.reduce(into: [AppEvents.ParameterName : Any]()) { (partialResult, arg1) in
+            if let newValue = arg1.value as? String {
+                 partialResult[AppEvents.ParameterName(arg1.key)] = newValue
+             }
+         }
+        
+        return newDict;
+    }
+    
+    @objc func setAdvertiserTrackingEnabled(_ call: CAPPluginCall) {
+        guard let enabled = call.getBool("enabled") else {
+            call.reject("Missing enabled argument")
+            return;
+        }
+        
+        FBSDKCoreKit.Settings.shared.isAdvertiserTrackingEnabled = enabled
+    }
 
     @objc func logEvent(_ call: CAPPluginCall) {
         guard let event = call.getString("event") else {
@@ -15,20 +34,18 @@ public class FacebookAnalytics: CAPPlugin {
             return;
         }
 
-        print(event)
-
         if let valueToSum = call.getDouble("valueToSum") {
+            print(valueToSum)
             if let params = call.getObject("params") {
-                AppEvents.shared.logEvent(.init(event), valueToSum: valueToSum, parameters: params)
+                AppEvents.shared.logEvent(AppEvents.Name(event), valueToSum: valueToSum, parameters: JSObjectToFBParams(params))
             } else {
-                AppEvents.logEvent(.init(event), valueToSum: valueToSum)
+                AppEvents.shared.logEvent(AppEvents.Name(event), valueToSum: valueToSum)
             }
-            
         } else {
             if let params = call.getObject("params") {
-                AppEvents.logEvent(.init(event), parameters: params)
+                AppEvents.shared.logEvent(AppEvents.Name(event), parameters: JSObjectToFBParams(params))
             } else {
-                AppEvents.logEvent(.init(event))
+                AppEvents.shared.logEvent(AppEvents.Name(event))
             }
         }
         
@@ -45,14 +62,14 @@ public class FacebookAnalytics: CAPPlugin {
         let currency = call.getString("currency") ?? "USD"
         let params = call.getObject("params") ?? [String:String]()
         
-        AppEvents.logPurchase(amount, currency: currency, parameters: params)
+        AppEvents.shared.logPurchase(amount: amount, currency: currency, parameters: JSObjectToFBParams(params))
 
         call.resolve()
     }
 
     @objc func logAddPaymentInfo(_ call: CAPPluginCall) {
         let success = call.getInt("success") ?? 0
-        AppEvents.logEvent(.addedPaymentInfo, parameters: ["success": success])
+        AppEvents.shared.logEvent(.addedPaymentInfo, parameters: [AppEvents.ParameterName("success"): success])
 
         call.resolve()
     }
@@ -65,18 +82,18 @@ public class FacebookAnalytics: CAPPlugin {
         let currency = call.getString("currency") ?? "USD"
 
         var params = call.getObject("params") ?? [String: String]()
-        
+
         params[AppEvents.ParameterName.currency.rawValue] = currency
 
-        AppEvents.logEvent(.addedToCart, valueToSum: amount, parameters: params)
+        AppEvents.shared.logEvent(.addedToCart, valueToSum: amount, parameters: JSObjectToFBParams(params))
 
         call.resolve()
     }
-    
-    @objc func logCompleteRegistration(_ call: CAPPluginCall) {
-        let parameters = call.getObject("params") ?? [String: String]()
 
-        AppEvents.logEvent(.completedRegistration, parameters: parameters)
+    @objc func logCompleteRegistration(_ call: CAPPluginCall) {
+        let params = call.getObject("params") ?? [String: String]()
+
+        AppEvents.shared.logEvent(.completedRegistration, parameters: JSObjectToFBParams(params))
 
         call.resolve()
     }
@@ -84,11 +101,11 @@ public class FacebookAnalytics: CAPPlugin {
         guard let amount = call.getDouble("amount") else {
             call.reject("Missing amount argument")
             return;
-        }        
-        
-        let parameters = call.getObject("params") ?? ["default": "default"]
+        }
 
-        AppEvents.logEvent(.initiatedCheckout, valueToSum: amount, parameters: parameters)
+        let params = call.getObject("params") ?? ["default": "default"]
+
+        AppEvents.shared.logEvent(.initiatedCheckout, valueToSum: amount, parameters: JSObjectToFBParams(params))
 
         call.resolve()
     }

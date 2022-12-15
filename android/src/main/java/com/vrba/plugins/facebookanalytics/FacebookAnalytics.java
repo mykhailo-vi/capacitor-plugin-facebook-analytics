@@ -33,6 +33,11 @@ public class FacebookAnalytics extends Plugin {
     }
 
     @PluginMethod
+    public void setAdvertiserTrackingEnabled(PluginCall call) {
+        call.resolve();
+    }
+
+    @PluginMethod
     public void logEvent(PluginCall call) {
         if (!call.getData().has("event")) {
             call.reject("Must provide an event");

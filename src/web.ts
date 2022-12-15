@@ -1,5 +1,5 @@
 import { WebPlugin } from '@capacitor/core';
-import { FacebookAnalyticsPlugin } from './definitions';
+import type { FacebookAnalyticsPlugin } from './definitions';
 
 export class FacebookAnalyticsWeb extends WebPlugin implements FacebookAnalyticsPlugin {
   constructor() {
@@ -7,6 +7,10 @@ export class FacebookAnalyticsWeb extends WebPlugin implements FacebookAnalytics
       name: 'FacebookAnalytics',
       platforms: ['web'],
     });
+  }
+
+  setAdvertiserTrackingEnabled(_: { enabled: boolean }): Promise<string> {
+    throw super.unimplemented();
   }
 
   logEvent(_: { event: string, valueToSum?: number, params?: any }): Promise<string> {
