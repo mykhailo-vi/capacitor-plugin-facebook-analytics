@@ -1,11 +1,12 @@
-## Installation
-
 This is a fork from [SpellChucker's plugin](https://github.com/SpellChucker/capacitor-plugin-facebook-analytics)
 
 **Current plugin version is for Capacitor 4**
 
-I didn't test it standalone. I use it with Facebook SDK in my projects. Current Facebook SDK version in plugin is 15.1.0. 
+I didn't test it standalone. I use it with Facebook SDK in my projects. Current Facebook SDK version in plugin is 15.1.0.
 If you also have Facebook SDK in your project, I recommend to set its version to 15.1.0.
+
+
+## Installation
 
 To use with npm
 
@@ -63,8 +64,6 @@ You have to implement _setAdvertiserTrackingEnabled_ method for iOS before sendi
 | logEvent              | ✅      | ✅  | ❌ |
 
 ## API
-
-### logEvent
 
 ```ts
 import { FacebookAnalytics } from 'capacitor-plugin-facebook-analytics';
