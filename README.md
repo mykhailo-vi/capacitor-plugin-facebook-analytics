@@ -7,11 +7,13 @@ This is a fork from [SpellChucker's plugin](https://github.com/SpellChucker/capa
 I didn't test it standalone. I use it with Facebook SDK in my projects. Current Facebook SDK version in plugin is 15.1.0. 
 If you also have Facebook SDK in your project, I recommend to set its version to 15.1.0.
 
+To use with npm
+
 ```bash
-$ npm i /sverdlov/capacitor-plugin-facebook-analytics
+$ npm i sverdlov/capacitor-plugin-facebook-analytics
 ```
 
-To use yarn
+To use with yarn
 
 ```bash
 yarn add https://github.com/sverdlov/capacitor-plugin-facebook-analytics
