@@ -1,4 +1,4 @@
-This is a fork from [SpellChucker's plugin](https://github.com/SpellChucker/capacitor-plugin-facebook-analytics)
+This is a fork from [sverdlov](https://github.com/sverdlov/capacitor-plugin-facebook-analytics)
 
 **Current plugin version is for Capacitor 4**
 
@@ -11,13 +11,13 @@ If you also have Facebook SDK in your project, I recommend to set its version to
 To use with npm
 
 ```bash
-$ npm i sverdlov/capacitor-plugin-facebook-analytics
+$ npm i @magroove/capacitor-plugin-facebook-analytics
 ```
 
 To use with yarn
 
 ```bash
-yarn add https://github.com/sverdlov/capacitor-plugin-facebook-analytics
+yarn add @magroove/capacitor-plugin-facebook-analytics
 ```
 
 ## Android configuration

@@ -15,5 +15,5 @@ Pod::Spec.new do |s|
   s.swift_version = '5.1'
 #   s.static_framework = true
   s.dependency 'Capacitor'
-  s.dependency 'FBSDKCoreKit', '15.1.0'
+  s.dependency 'FBSDKCoreKit', '~> 14.1.0'
 end

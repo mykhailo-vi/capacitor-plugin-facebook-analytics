@@ -1,6 +1,6 @@
 {
-  "name": "capacitor-plugin-facebook-analytics",
-  "version": "0.0.10",
+  "name": "@magroove/capacitor-plugin-facebook-analytics",
+  "version": "0.0.11",
   "description": "Provide Facebook analytics functionality to Capacitor-based projects.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -17,10 +17,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:SpellChucker/capacitor-plugin-facebook-analytics.git"
+    "url": "git@github.com:Magroove/capacitor-plugin-facebook-analytics.git"
   },
   "bugs": {
-    "url": "git@github.com:SpellChucker/capacitor-plugin-facebook-analytics.git/issues"
+    "url": "git@github.com:Magroove/capacitor-plugin-facebook-analytics.git/issues"
   },
   "keywords": [
     "capacitor",
