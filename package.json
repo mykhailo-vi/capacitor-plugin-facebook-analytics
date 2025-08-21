@@ -11,7 +11,7 @@
     "android/build.gradle",
     "dist/",
     "ios/Plugin/",
-    "MagrooveCapacitorPluginFacebookAnalytics.podspec"
+    "CapacitorPluginFacebookAnalytics.podspec"
   ],
   "author": "Todd Vrba",
   "license": "MIT",
